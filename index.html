@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DriveX at ICRA 2027 brings together researchers and practitioners working on foundation models, embodied AI, world models, spatial intelligence, and trustworthy autonomous driving.">
+  <meta name="keywords" content="DriveX, ICRA 2027, foundation models, autonomous driving, embodied AI, Physical AI, world models, VLA, 3D spatial intelligence">
+  <meta name="theme-color" content="#0b2239">
+  <meta property="og:title" content="DriveX@ICRA 2027 | Foundation Models for Autonomous Driving">
+  <meta property="og:description" content="An ICRA 2027 full-day workshop on foundation models for safe, generalizable, and embodied autonomous driving.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://drivex-workshop.github.io/icra2027/">
+  <title>DriveX@ICRA 2027 | Foundation Models for Autonomous Driving</title>
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <style>
+    :root {
+      --ink: #0b2239;
+      --ink-2: #173a59;
+      --blue: #174a7e;
+      --blue-bright: #2f83c5;
+      --cyan: #41c7c7;
+      --gold: #f2b84b;
+      --paper: #ffffff;
+      --wash: #f3f7fb;
+      --wash-2: #eaf2f8;
+      --text: #24384b;
+      --muted: #64778a;
+      --line: #d7e3ed;
+      --shadow: 0 18px 50px rgba(11, 34, 57, 0.10);
+      --radius: 22px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 82px;
+      background: var(--wash);
+    }
+
+    body {
+      color: var(--text);
+      background: var(--wash);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    a:hover {
+      color: var(--blue-bright);
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 40;
+      min-height: 68px;
+      background: rgba(7, 26, 44, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: 0 8px 26px rgba(4, 19, 32, 0.18);
+    }
+
+    .site-nav .navbar-brand,
+    .site-nav .navbar-menu {
+      min-height: 68px;
+    }
+
+    .site-nav .navbar-item,
+    .site-nav .navbar-link {
+      color: rgba(255, 255, 255, 0.83);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .site-nav .navbar-item:hover,
+    .site-nav .navbar-item.is-active,
+    .site-nav .navbar-link:hover {
+      color: #ffffff;
+      background: rgba(65, 199, 199, 0.12);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--cyan), #b7f1e8);
+      box-shadow: 0 7px 22px rgba(65, 199, 199, 0.25);
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-copy span {
+      margin-top: 0.13rem;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .site-nav .navbar-burger {
+      color: #ffffff;
+      height: 68px;
+    }
+
+    .drivex-hero {
+      position: relative;
+      display: grid;
+      min-height: 780px;
+      padding: 126px 1.5rem 88px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(65, 199, 199, 0.30), transparent 31%),
+        radial-gradient(circle at 8% 84%, rgba(47, 131, 197, 0.30), transparent 33%),
+        linear-gradient(115deg, rgba(5, 24, 41, 0.97), rgba(12, 50, 79, 0.91)),
+        url("static/img/header.jpg") center / cover;
+    }
+
+    .drivex-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.34;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, 100%);
+      margin: auto;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #dffafa;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 7px rgba(65, 199, 199, 0.12);
+    }
+
+    .hero-title {
+      max-width: 920px;
+      margin: 1.6rem 0 1rem;
+      color: #ffffff;
+      font-size: clamp(3.25rem, 7.8vw, 6.8rem);
+      font-weight: 850;
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      text-wrap: balance;
+    }
+
+    .hero-title span {
+      color: var(--cyan);
+    }
+
+    .hero-subtitle {
+      max-width: 780px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.77);
+      font-size: clamp(1.08rem, 2.1vw, 1.35rem);
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 2rem 0 0;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.72rem 0.9rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.09);
+      color: rgba(255, 255, 255, 0.92);
+      font-weight: 700;
+    }
+
+    .hero-meta i {
+      color: var(--cyan);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    .hero-actions .button {
+      height: auto;
+      padding: 0.82rem 1.25rem;
+      border: 0;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .hero-actions .primary-cta {
+      color: var(--ink);
+      background: var(--cyan);
+    }
+
+    .hero-actions .secondary-cta {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.10);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.20);
+    }
+
+    .hero-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 3.4rem;
+    }
+
+    .hero-pillar {
+      min-height: 112px;
+      padding: 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-pillar strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .hero-pillar span {
+      color: rgba(255, 255, 255, 0.64);
+      font-size: 0.88rem;
+    }
+
+    .section-shell {
+      padding: 5.5rem 1.5rem;
+    }
+
+    .section-shell.is-white {
+      background: var(--paper);
+    }
+
+    .section-shell.is-tinted {
+      background: linear-gradient(180deg, var(--wash), #eef5fa);
+    }
+
+    .content-wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(300px, 1.08fr);
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.7rem;
+      color: var(--blue);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--cyan);
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+      font-weight: 850;
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+
+    .section-lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .intro-copy {
+      font-size: 1.07rem;
+    }
+
+    .intro-copy p:first-child {
+      margin-top: 0;
+    }
+
+    .outcome-card {
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #ffffff, #f0f7fb);
+      box-shadow: var(--shadow);
+    }
+
+    .outcome-card h3 {
+      margin: 0 0 0.9rem;
+      color: var(--ink);
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .outcome-card ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    .outcome-card li + li {
+      margin-top: 0.55rem;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .topic-card {
+      position: relative;
+      min-height: 122px;
+      padding: 1.2rem 1.2rem 1.2rem 1.3rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(11, 34, 57, 0.055);
+    }
+
+    .topic-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -24px -30px auto;
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: rgba(65, 199, 199, 0.10);
+    }
+
+    .topic-card i {
+      color: var(--blue-bright);
+      font-size: 1.15rem;
+    }
+
+    .topic-card strong {
+      display: block;
+      margin-top: 0.65rem;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .table-shell {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .program-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .program-table th,
+    .program-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .program-table th {
+      color: #ffffff;
+      background: var(--ink);
+      font-size: 0.73rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .program-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .program-table td:first-child {
+      width: 180px;
+      color: var(--blue);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .program-table tbody tr:nth-child(even) {
+      background: #f7fafc;
+    }
+
+    .program-table tbody tr:hover {
+      background: #edf7f7;
+    }
+
+    .schedule-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .person-card {
+      position: relative;
+      display: block;
+      min-height: 238px;
+      padding: 1.25rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #ffffff;
+      color: var(--text);
+      box-shadow: 0 12px 32px rgba(11, 34, 57, 0.065);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .person-card::after {
+      content: "↗";
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #9eb0c1;
+      font-weight: 800;
+    }
+
+    .person-card:hover {
+      color: var(--text);
+      transform: translateY(-4px);
+      border-color: rgba(47, 131, 197, 0.45);
+      box-shadow: 0 18px 42px rgba(11, 34, 57, 0.12);
+    }
+
+    .person-avatar {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border-radius: 24px;
+      color: var(--ink);
+      background: linear-gradient(135deg, #c8eef0, #dce8f5);
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+    }
+
+    .person-avatar img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #eef3f7;
+    }
+
+    .person-name {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.05rem;
+      font-weight: 850;
+      line-height: 1.25;
+    }
+
+    .person-affiliation {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .paper-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.82fr);
+      gap: 1.4rem;
+      align-items: start;
+    }
+
+    .paper-card,
+    .dates-card,
+    .challenge-card {
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .track-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.42rem 0.66rem;
+      border-radius: 999px;
+      color: #0a5c5c;
+      background: #dff7f4;
+      font-size: 0.75rem;
+      font-weight: 850;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .paper-card h3,
+    .dates-card h3,
+    .challenge-card h3 {
+      margin: 1rem 0 0.7rem;
+      color: var(--ink);
+      font-size: 1.45rem;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .paper-card ul {
+      margin: 1.15rem 0;
+      padding-left: 1.2rem;
+    }
+
+    .paper-card li + li {
+      margin-top: 0.55rem;
+    }
+
+    .coming-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.72rem 0.9rem;
+      border-radius: 12px;
+      color: var(--muted);
+      background: var(--wash-2);
+      font-weight: 800;
+      cursor: not-allowed;
+    }
+
+    .date-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+    }
+
+    .date-row {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 0.7rem;
+      padding: 0.72rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .date-row:last-child {
+      border-bottom: 0;
+    }
+
+    .date-row dt {
+      color: var(--blue);
+      font-weight: 850;
+    }
+
+    .date-row dd {
+      margin: 0;
+      color: var(--text);
+    }
+
+    .award-banner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.3rem;
+      align-items: center;
+      padding: 2rem;
+      overflow: hidden;
+      border-radius: 26px;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 88% 20%, rgba(242, 184, 75, 0.26), transparent 34%),
+        linear-gradient(125deg, var(--ink), #174a7e);
+      box-shadow: var(--shadow);
+    }
+
+    .award-icon {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      color: var(--ink);
+      background: var(--gold);
+      font-size: 1.9rem;
+    }
+
+    .award-banner h3 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 1.65rem;
+      font-weight: 850;
+    }
+
+    .award-banner p {
+      margin: 0.3rem 0 0;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .award-pool {
+      color: var(--gold);
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .challenge-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff, #eaf7f7);
+    }
+
+    .challenge-card h3 {
+      margin-top: 0;
+    }
+
+    .coming-soon {
+      padding: 0.7rem 0.95rem;
+      border-radius: 999px;
+      color: #0a5c5c;
+      background: #d6f4ef;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .leader-card {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1rem;
+      align-items: center;
+      min-height: 124px;
+      padding: 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      color: var(--text);
+      box-shadow: 0 10px 28px rgba(11, 34, 57, 0.055);
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .leader-card:hover {
+      color: var(--text);
+      transform: translateY(-3px);
+      border-color: rgba(47, 131, 197, 0.4);
+    }
+
+    .leader-card .person-avatar {
+      width: 72px;
+      height: 72px;
+      margin: 0;
+      border-radius: 19px;
+      font-size: 1.05rem;
+    }
+
+    .leader-role {
+      margin-top: 0.35rem;
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .edition-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .edition-card {
+      display: grid;
+      place-items: center;
+      min-height: 88px;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #ffffff;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 850;
+      line-height: 1.3;
+      box-shadow: 0 8px 22px rgba(11, 34, 57, 0.045);
+    }
+
+    .site-footer {
+      padding: 3rem 1.5rem;
+      color: rgba(255, 255, 255, 0.72);
+      background: var(--ink);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .footer-inner strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: #ffffff;
+    }
+
+    .footer-inner a {
+      color: var(--cyan);
+    }
+
+    .footer-meta {
+      text-align: right;
+    }
+
+    @media (max-width: 1023px) {
+      .site-nav .navbar-menu {
+        padding: 0.45rem;
+        background: rgba(7, 26, 44, 0.99);
+      }
+
+      .hero-pillars,
+      .topic-grid,
+      .leadership-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .people-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .edition-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .drivex-hero {
+        min-height: auto;
+        padding-top: 112px;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 16vw, 4.6rem);
+      }
+
+      .hero-pillars,
+      .section-heading,
+      .intro-grid,
+      .paper-layout,
+      .award-banner,
+      .challenge-card {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        gap: 1.1rem;
+      }
+
+      .topic-grid,
+      .leadership-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .people-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .person-card {
+        min-height: 218px;
+      }
+
+      .award-pool {
+        white-space: normal;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .footer-meta {
+        margin-top: 1.2rem;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .section-shell {
+        padding: 4.2rem 1rem;
+      }
+
+      .hero-meta,
+      .hero-actions {
+        display: grid;
+      }
+
+      .hero-actions .button {
+        justify-content: center;
+      }
+
+      .people-grid,
+      .edition-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .person-card {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 1rem;
+        align-items: center;
+        min-height: auto;
+      }
+
+      .person-avatar {
+        width: 72px;
+        height: 72px;
+        margin: 0;
+        border-radius: 18px;
+      }
+
+      .person-card::after {
+        display: none;
+      }
+
+      .program-table th,
+      .program-table td {
+        padding: 0.75rem 0.7rem;
+      }
+
+      .program-table td:first-child {
+        width: 114px;
+        white-space: normal;
+      }
+
+      .date-row {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container is-max-widescreen">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#top" aria-label="DriveX ICRA 2027 home">
+          <span class="brand-lockup">
+            <span class="brand-mark"><i class="fas fa-car-side" aria-hidden="true"></i></span>
+            <span class="brand-copy">
+              <strong>DriveX@ICRA 2027</strong>
+              <span>Foundation models × autonomous driving</span>
+            </span>
+          </span>
+        </a>
+        <button class="navbar-burger" aria-label="Open navigation menu" aria-expanded="false" data-target="main-menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div id="main-menu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="#introduction">Introduction</a>
+          <a class="navbar-item" href="#topics">Topics</a>
+          <a class="navbar-item" href="#schedule">Schedule</a>
+          <a class="navbar-item" href="#speakers">Speakers</a>
+          <a class="navbar-item" href="#paper-track">Paper Track</a>
+          <a class="navbar-item" href="#awards">Awards</a>
+          <a class="navbar-item" href="#organizers">Organizers</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="drivex-hero">
+    <div class="hero-inner">
+      <div class="hero-kicker">
+        <span class="dot" aria-hidden="true"></span>
+        8th DriveX Workshop · IEEE ICRA 2027
+      </div>
+      <h1 class="hero-title">Foundation Models for <span>Autonomous Driving</span></h1>
+      <p class="hero-subtitle">
+        A full-day forum connecting robotics, machine learning, computer vision, and autonomous systems to advance safe, generalizable, and embodied driving intelligence.
+      </p>
+
+      <div class="hero-meta" aria-label="Workshop details">
+        <span><i class="fas fa-calendar-alt" aria-hidden="true"></i>May 24 or May 28, 2027</span>
+        <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i>COEX · Seoul, South Korea</span>
+        <span><i class="fas fa-clock" aria-hidden="true"></i>Full-day · In person</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="button primary-cta" href="#paper-track"><i class="fas fa-file-alt" aria-hidden="true"></i>&nbsp; Call for Papers</a>
+        <a class="button secondary-cta" href="#speakers"><i class="fas fa-microphone" aria-hidden="true"></i>&nbsp; Invited Speakers</a>
+      </div>
+
+      <div class="hero-pillars" aria-label="Workshop focus areas">
+        <div class="hero-pillar">
+          <strong>Foundation and World Models</strong>
+          <span>Representations that connect perception, prediction, reasoning, and action.</span>
+        </div>
+        <div class="hero-pillar">
+          <strong>Embodied and Physical AI</strong>
+          <span>Spatially grounded intelligence for dynamic real-world environments.</span>
+        </div>
+        <div class="hero-pillar">
+          <strong>Trustworthy Autonomy</strong>
+          <span>Safety, robustness, uncertainty, efficiency, and closed-loop evaluation.</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="introduction" class="section-shell is-white">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Workshop vision</div>
+            <h2 class="section-title">From scene understanding to grounded action</h2>
+          </div>
+          <p class="section-lead">
+            DriveX examines how foundation models can move beyond isolated perception tasks toward autonomous systems that reason about the physical world and act safely within it.
+          </p>
+        </div>
+
+        <div class="intro-grid">
+          <div class="intro-copy">
+            <p>
+              Autonomous driving is a large-scale embodied-robotics problem. Intelligent agents must perceive, predict, reason, and act in uncertain 3D environments under stringent safety and real-time constraints. Foundation models are shifting the field toward systems that connect vision, language, geometry, time, and action.
+            </p>
+            <p>
+              DriveX@ICRA 2027 brings together researchers and practitioners across robotics, machine learning, computer vision, and autonomous systems. The workshop will explore multimodal and Vision-Language-Action models, generative world models, 3D spatial intelligence, cooperative autonomy, agentic systems, and efficient deployment on real robotic platforms.
+            </p>
+            <p>
+              The program combines invited talks, contributed papers, posters, demonstrations, moderated panels, interactive discussion, and a closing synthesis of shared evaluation priorities and open research problems.
+            </p>
+          </div>
+          <aside class="outcome-card" aria-label="Workshop objectives">
+            <h3>What we want to advance</h3>
+            <ul>
+              <li>Spatially and temporally grounded representations</li>
+              <li>World models that support closed-loop planning</li>
+              <li>Cooperative perception and multi-agent reasoning</li>
+              <li>Trustworthy, interpretable, and efficient deployment</li>
+              <li>Shared benchmarks and reproducible evaluation</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics" class="section-shell is-tinted">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Call for participation</div>
+            <h2 class="section-title">Topics of interest</h2>
+          </div>
+          <p class="section-lead">
+            We welcome research spanning algorithms, systems, datasets, evaluation, and real-world deployment at the intersection of foundation models and autonomous robotics.
+          </p>
+        </div>
+
+        <div class="topic-grid">
+          <div class="topic-card"><i class="fas fa-layer-group" aria-hidden="true"></i><strong>Foundation models for autonomous driving</strong></div>
+          <div class="topic-card"><i class="fas fa-robot" aria-hidden="true"></i><strong>Embodied AI and Physical AI</strong></div>
+          <div class="topic-card"><i class="fas fa-language" aria-hidden="true"></i><strong>Vision-Language and Vision-Language-Action models</strong></div>
+          <div class="topic-card"><i class="fas fa-globe" aria-hidden="true"></i><strong>World models and generative simulation</strong></div>
+          <div class="topic-card"><i class="fas fa-cubes" aria-hidden="true"></i><strong>3D spatial intelligence and scene understanding</strong></div>
+          <div class="topic-card"><i class="fas fa-route" aria-hidden="true"></i><strong>End-to-end prediction, planning, and control</strong></div>
+          <div class="topic-card"><i class="fas fa-broadcast-tower" aria-hidden="true"></i><strong>Cooperative perception, V2X, and infrastructure intelligence</strong></div>
+          <div class="topic-card"><i class="fas fa-project-diagram" aria-hidden="true"></i><strong>Multi-agent and agentic AI systems</strong></div>
+          <div class="topic-card"><i class="fas fa-sync-alt" aria-hidden="true"></i><strong>Robot learning and sim-to-real transfer</strong></div>
+          <div class="topic-card"><i class="fas fa-shield-alt" aria-hidden="true"></i><strong>Safety, robustness, uncertainty, and interpretability</strong></div>
+          <div class="topic-card"><i class="fas fa-microchip" aria-hidden="true"></i><strong>Efficient deployment, quantization, and distillation</strong></div>
+          <div class="topic-card"><i class="fas fa-chart-line" aria-hidden="true"></i><strong>Datasets, benchmarks, and closed-loop evaluation</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" class="section-shell is-white">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Full-day program</div>
+            <h2 class="section-title">Tentative schedule</h2>
+          </div>
+          <p class="section-lead">
+            The final speaker order, room assignment, and detailed session titles will be announced after the ICRA workshop date is confirmed.
+          </p>
+        </div>
+
+        <div class="table-shell">
+          <table class="program-table">
+            <caption class="sr-only">Tentative full-day program for the DriveX workshop at ICRA 2027</caption>
+            <thead>
+              <tr><th>Time</th><th>Program</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>08:30–08:45</td><td>Welcome and goals</td></tr>
+              <tr><td>08:45–10:00</td><td>Invited talks I</td></tr>
+              <tr><td>10:00–10:30</td><td>Coffee and posters</td></tr>
+              <tr><td>10:30–12:00</td><td>Invited talks II</td></tr>
+              <tr><td>12:00–12:30</td><td>Panel I</td></tr>
+              <tr><td>12:30–13:30</td><td>Lunch</td></tr>
+              <tr><td>13:30–15:30</td><td>Invited talks III</td></tr>
+              <tr><td>15:30–16:00</td><td>Coffee, posters, and demonstrations</td></tr>
+              <tr><td>16:00–16:30</td><td>Invited talks IV</td></tr>
+              <tr><td>16:30–17:00</td><td>Panel II</td></tr>
+              <tr><td>17:00–17:40</td><td>Four contributed-paper oral presentations</td></tr>
+              <tr><td>17:40–17:50</td><td>Challenge highlights and Best Paper awards</td></tr>
+              <tr><td>17:50–18:00</td><td>Synthesis and closing</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="schedule-note"><i class="fas fa-info-circle" aria-hidden="true"></i><span>Schedule is tentative and subject to the final ICRA program.</span></p>
+      </div>
+    </section>
+
+    <section id="speakers" class="section-shell is-tinted">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Academic and industry perspectives</div>
+            <h2 class="section-title">Invited speakers</h2>
+          </div>
+          <p class="section-lead">
+            The invited program brings together leaders in foundation models, robotics, computer vision, autonomous driving, simulation, and safe real-world deployment.
+          </p>
+        </div>
+
+        <div class="people-grid">
+          <a class="person-card" href="https://www.cvlibs.net/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>AG</span><img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&amp;user=SrVnrPcAAAAJ&amp;citpid=7" alt="Portrait of Andreas Geiger" loading="lazy"></div>
+            <div><p class="person-name">Andreas Geiger</p><p class="person-affiliation">University of Tübingen</p></div>
+          </a>
+          <a class="person-card" href="https://www.linkedin.com/in/jamie-shotton-295ab25/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>JS</span><img src="https://wayve.ai/wp-content/uploads/2024/01/Jamie-Shotton-Wavye_sq2024.jpg" alt="Portrait of Jamie Shotton" loading="lazy"></div>
+            <div><p class="person-name">Jamie Shotton</p><p class="person-affiliation">Wayve</p></div>
+          </a>
+          <a class="person-card" href="https://thoth.inrialpes.fr/~schmid/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>CS</span><img src="https://awards.acm.org/binaries/content/gallery/acm/awards/photo/s/schmid_3213623" alt="Portrait of Cordelia Schmid" loading="lazy"></div>
+            <div><p class="person-name">Cordelia Schmid</p><p class="person-affiliation">INRIA</p></div>
+          </a>
+          <a class="person-card" href="https://www.ce.cit.tum.de/lsy/prof-angela-schoellig/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>AS</span><img src="http://www.dynsyslab.org/wp-content/uploads/2013/02/schoellig-headshot.jpg" alt="Portrait of Angela Schoellig" loading="lazy"></div>
+            <div><p class="person-name">Angela Schoellig</p><p class="person-affiliation">Technical University of Munich</p></div>
+          </a>
+          <a class="person-card" href="https://cseweb.ucsd.edu/~mkchandraker/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>MC</span><img src="http://fg2023.ieee-biometrics.org/assets/images/organizers/cropped-manmohan-chandraker.jpeg" alt="Portrait of Manmohan Chandraker" loading="lazy"></div>
+            <div><p class="person-name">Manmohan Chandraker</p><p class="person-affiliation">UC San Diego</p></div>
+          </a>
+          <a class="person-card" href="https://people.eecs.berkeley.edu/~svlevine/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>SL</span><img src="https://people.eecs.berkeley.edu/~svlevine/images/portrait_lab_small.png" alt="Portrait of Sergey Levine" loading="lazy"></div>
+            <div><p class="person-name">Sergey Levine</p><p class="person-affiliation">UC Berkeley</p></div>
+          </a>
+          <a class="person-card" href="https://www.utn.de/person/prof-dr-wolfram-burgard-2/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>WB</span><img src="https://www.utn.de/files/2024/04/TU_Nuernberg_Prof_Burgard_Eye-D-Fotodesign_261_1zu1-s-240x320.jpg" alt="Portrait of Wolfram Burgard" loading="lazy"></div>
+            <div><p class="person-name">Wolfram Burgard</p><p class="person-affiliation">University of Technology Nuremberg</p></div>
+          </a>
+          <a class="person-card" href="https://web.stanford.edu/~bohg/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>JB</span><img src="https://profiles.stanford.edu/proxy/api/cap/profiles/161492/resources/profilephoto/350x350.1581348490243.jpg" alt="Portrait of Jeannette Bohg" loading="lazy"></div>
+            <div><p class="person-name">Jeannette Bohg</p><p class="person-affiliation">Stanford University</p></div>
+          </a>
+          <a class="person-card" href="https://research.nvidia.com/person/marco-pavone" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>MP</span><img src="static/img/marco_pavone.png" alt="Portrait of Marco Pavone" loading="lazy"></div>
+            <div><p class="person-name">Marco Pavone</p><p class="person-affiliation">Stanford University and NVIDIA</p></div>
+          </a>
+          <a class="person-card" href="https://zhanwei.site/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>WZ</span><img src="https://i0.wp.com/zhanwei.site/wp-content/uploads/2020/12/Berkeley_v1_head-larger-square.png?resize=631%2C642&amp;ssl=1" alt="Portrait of Wei Zhan" loading="lazy"></div>
+            <div><p class="person-name">Wei Zhan</p><p class="person-affiliation">Applied Intuition</p></div>
+          </a>
+          <a class="person-card" href="https://www.linkedin.com/in/dragomiranguelov/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>DA</span><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=T04c3fwAAAAJ&amp;citpid=8" alt="Portrait of Dragomir Anguelov" loading="lazy"></div>
+            <div><p class="person-name">Dragomir Anguelov</p><p class="person-affiliation">Waymo</p></div>
+          </a>
+          <a class="person-card" href="https://alvarezlopezjosem.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>JA</span><img src="https://alvarezlopezjosem.github.io/data/jose_alvarez_4.jpg" alt="Portrait of José M. Álvarez" loading="lazy"></div>
+            <div><p class="person-name">José M. Álvarez</p><p class="person-affiliation">NVIDIA</p></div>
+          </a>
+          <a class="person-card" href="https://www.linkedin.com/in/eashokkumar" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>AE</span><img src="https://wdfm-ad.github.io/assets/img/headshots/Ashok-1400.webp" alt="Portrait of Ashok Elluswamy" loading="lazy"></div>
+            <div><p class="person-name">Ashok Elluswamy</p><p class="person-affiliation">Tesla</p></div>
+          </a>
+          <a class="person-card" href="https://engineering.stanford.edu/people/chelsea-finn" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>CF</span><img src="https://engineering.stanford.edu/sites/default/files/styles/large_square/public/media/person/chelsea-finn1655521282579.jpg?h=1641edec&amp;itok=Ua5EcMDT" alt="Portrait of Chelsea Finn" loading="lazy"></div>
+            <div><p class="person-name">Chelsea Finn</p><p class="person-affiliation">Stanford University</p></div>
+          </a>
+          <a class="person-card" href="https://motional.com/phil-michel" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>PM</span><img src="https://motional.com/sites/default/files/2026-04/Phil%20Michel.jpeg" alt="Portrait of Phil Michel" loading="lazy"></div>
+            <div><p class="person-name">Phil Michel</p><p class="person-affiliation">Motional</p></div>
+          </a>
+          <a class="person-card" href="https://www.research.google/people/federicotombari/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>FT</span><img src="https://federicotombari.github.io/images/portrait.jpg" alt="Portrait of Federico Tombari" loading="lazy"></div>
+            <div><p class="person-name">Federico Tombari</p><p class="person-affiliation">Google</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="paper-track" class="section-shell is-white">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Call for papers</div>
+            <h2 class="section-title">Non-archival paper track</h2>
+          </div>
+          <p class="section-lead">
+            Share new results, work in progress, position papers, negative results, or recently published work without restricting later archival publication.
+          </p>
+        </div>
+
+        <div class="paper-layout">
+          <article class="paper-card">
+            <span class="track-label"><i class="fas fa-unlock-alt" aria-hidden="true"></i>Non-archival</span>
+            <h3>Submission format</h3>
+            <p>We invite high-quality contributions aligned with the workshop topics.</p>
+            <ul>
+              <li>4 to 6 pages, excluding references</li>
+              <li>ICRA paper style and PDF submission</li>
+              <li>Double-blind review with at least three reviews per submission</li>
+              <li>Not included in archival proceedings</li>
+              <li>Accepted work presented as a poster, with selected papers invited for oral presentation</li>
+            </ul>
+            <span class="coming-button" aria-disabled="true"><i class="fas fa-hourglass-half" aria-hidden="true"></i>Submission link and detailed instructions coming soon</span>
+          </article>
+
+          <aside class="dates-card" aria-label="Paper track dates">
+            <span class="track-label"><i class="fas fa-calendar-check" aria-hidden="true"></i>Important dates</span>
+            <h3>2027 timeline</h3>
+            <dl class="date-list">
+              <div class="date-row"><dt>Feb. 5</dt><dd>Website and call launch</dd></div>
+              <div class="date-row"><dt>Feb. 12</dt><dd>OpenReview opens</dd></div>
+              <div class="date-row"><dt>Mar. 5</dt><dd>Abstract registration, AoE</dd></div>
+              <div class="date-row"><dt>Mar. 12</dt><dd>Paper submission deadline, AoE</dd></div>
+              <div class="date-row"><dt>Mar. 26</dt><dd>Author notification</dd></div>
+              <div class="date-row"><dt>Apr. 9</dt><dd>Final paper materials</dd></div>
+              <div class="date-row"><dt>May 14</dt><dd>Posters, slides, and demonstrations</dd></div>
+              <div class="date-row"><dt>May 24 or 28</dt><dd>Workshop at ICRA 2027</dd></div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards" class="section-shell is-tinted">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Paper recognition</div>
+            <h2 class="section-title">Best Paper awards</h2>
+          </div>
+          <p class="section-lead">Awards will recognize clarity, scientific contribution, reproducibility, safety insight, and real-world relevance.</p>
+        </div>
+
+        <div class="award-banner">
+          <div class="award-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+          <div>
+            <h3>Three Best Paper awards</h3>
+            <p>The final allocation across the three awards will be announced with the paper-track details.</p>
+          </div>
+          <div class="award-pool">USD 1,000 to 2,000</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="challenges" class="section-shell is-white">
+      <div class="content-wrap">
+        <div class="challenge-card">
+          <div>
+            <div class="eyebrow">Benchmark program</div>
+            <h3>DriveX challenge program</h3>
+            <p>
+              Hands-on benchmark tracks will connect foundation-model research to measurable progress in cooperative perception, reasoning, world modeling, and closed-loop driving. Track details, participation instructions, and timelines will be announced later.
+            </p>
+          </div>
+          <span class="coming-soon">Coming soon</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="organizers" class="section-shell is-tinted">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Organizing team</div>
+            <h2 class="section-title">Academia and industry, working together</h2>
+          </div>
+          <p class="section-lead">
+            The team spans foundation models, robotics, autonomous driving, computer vision, cooperative perception, benchmarks, safety, and production deployment.
+          </p>
+        </div>
+
+        <div class="leadership-grid">
+          <a class="leader-card" href="https://walzimmer.github.io/website/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>WZ</span><img src="static/img/walter_zimmer.jpeg" alt="Portrait of Walter Zimmer" loading="lazy"></div>
+            <div><p class="person-name">Walter Zimmer</p><p class="person-affiliation">UCLA and TUM</p><p class="leader-role">General Chair and Primary Contact</p></div>
+          </a>
+          <a class="leader-card" href="https://rruisong.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>RS</span><img src="https://i1.rgstatic.net/ii/profile.image/1160239365795840-1653634029979_Q512/Rui-Song-47.jpg" alt="Portrait of Rui Song" loading="lazy"></div>
+            <div><p class="person-name">Rui Song</p><p class="person-affiliation">UCLA and Cambridge</p><p class="leader-role">Technical Program and Panels</p></div>
+          </a>
+          <a class="leader-card" href="https://mczhi.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>ZH</span><img src="https://mczhi.github.io/images/android-chrome-512x512.png" alt="Portrait of Zhiyu Huang" loading="lazy"></div>
+            <div><p class="person-name">Zhiyu Huang</p><p class="person-affiliation">NC State University</p><p class="leader-role">Technical Program and Panels</p></div>
+          </a>
+          <a class="leader-card" href="https://www.rossgreer.com/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>RG</span><img src="static/img/ross_greer.jpg" alt="Portrait of Ross Greer" loading="lazy"></div>
+            <div><p class="person-name">Ross Greer</p><p class="person-affiliation">UC Merced</p><p class="leader-role">Technical Program and Panels</p></div>
+          </a>
+          <a class="leader-card" href="https://zewei-zhou.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>ZZ</span><img src="static/img/zewei_zhou.jpg" alt="Portrait of Zewei Zhou" loading="lazy"></div>
+            <div><p class="person-name">Zewei Zhou</p><p class="person-affiliation">UCLA</p></div>
+          </a>
+          <a class="leader-card" href="https://scholar.google.com/citations?user=6YqkXM0AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>TC</span><img src="static/img/tianhui_cai.jpg" alt="Portrait of Tianhui Cai" loading="lazy"></div>
+            <div><p class="person-name">Tianhui Cai</p><p class="person-affiliation">UCLA</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>HY</span><img src="https://mobility-lab.seas.ucla.edu/files/2026/10/haohan.jpg" alt="Portrait of Haohan Yang" loading="lazy"></div>
+            <div><p class="person-name">Haohan Yang</p><p class="person-affiliation">UCLA</p></div>
+          </div>
+          <a class="leader-card" href="https://handsomeyun.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>YZ</span><img src="https://handsomeyun.github.io/assets/img/prof_pic-480.webp" alt="Portrait of Yun Zhang" loading="lazy"></div>
+            <div><p class="person-name">Yun Zhang</p><p class="person-affiliation">UCLA</p></div>
+          </a>
+          <a class="leader-card" href="https://sethzhao506.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>SZ</span><img src="https://sethzhao506.github.io/assets/img/profile_pic_2022.png" alt="Portrait of Seth Z. Zhao" loading="lazy"></div>
+            <div><p class="person-name">Seth Z. Zhao</p><p class="person-affiliation">UCLA Computer Science</p></div>
+          </a>
+          <a class="leader-card" href="https://www.linkedin.com/in/max-ronecker-929b72106/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>MR</span><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=AVQ6vGcAAAAJ&amp;citpid=6" alt="Portrait of Max Ronecker" loading="lazy"></div>
+            <div><p class="person-name">Max Ronecker</p><p class="person-affiliation">NVIDIA</p></div>
+          </a>
+          <a class="leader-card" href="https://katieluo88.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>KL</span><img src="https://research.nvidia.com/sites/default/files/graduate-fellow-profiles/2023-02/Katie_Luo.photo_.cropped_2.jpg" alt="Portrait of Katie Luo" loading="lazy"></div>
+            <div><p class="person-name">Katie Luo</p><p class="person-affiliation">Waymo</p></div>
+          </a>
+          <a class="leader-card" href="https://www.linkedin.com/in/pegadoflavian/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>FP</span><img src="https://drivex-workshop.github.io/eccv2026/static/images/flavian.jpeg" alt="Portrait of Flavian Pegado" loading="lazy"></div>
+            <div><p class="person-name">Flavian Pegado</p><p class="person-affiliation">Wayve</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>ZF</span><img src="https://energypostdoc.stanford.edu/sites/sepf/files/styles/medium_square/public/media/image/headshot_0.jpeg?h=b161372b&amp;itok=HM3gdik8" alt="Portrait of Zhe Fu" loading="lazy"></div>
+            <div><p class="person-name">Zhe Fu</p><p class="person-affiliation">Stanford University</p></div>
+          </div>
+          <div class="leader-card">
+            <div class="person-avatar"><span>LT</span><img src="https://larissa.triess.eu/assets/img/profile_img.jpg" alt="Portrait of Larissa Triess" loading="lazy"></div>
+            <div><p class="person-name">Larissa Triess</p><p class="person-affiliation">Google</p></div>
+          </div>
+          <a class="leader-card" href="https://chuhengwei.com/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>CW</span><img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&amp;user=LXwEufAAAAAJ&amp;citpid=1" alt="Portrait of Chuheng Wei" loading="lazy"></div>
+            <div><p class="person-name">Chuheng Wei</p><p class="person-affiliation">Purdue University</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>XC</span><img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&amp;user=xBv-PMEAAAAJ&amp;citpid=3" alt="Portrait of Xiangyu Chen" loading="lazy"></div>
+            <div><p class="person-name">Xiangyu Chen</p><p class="person-affiliation">NVIDIA</p></div>
+          </div>
+          <a class="leader-card" href="https://sites.google.com/site/boyilics/home" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>BL</span><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=0JH6YbEAAAAJ&amp;citpid=5" alt="Portrait of Boyi Li" loading="lazy"></div>
+            <div><p class="person-name">Boyi Li</p><p class="person-affiliation">NVIDIA</p></div>
+          </a>
+          <a class="leader-card" href="http://luoping.me/author/haibao-yu/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>HY</span><img src="https://coop-intelligence.github.io/haibao_yu.jpg" alt="Portrait of Haibao Yu" loading="lazy"></div>
+            <div><p class="person-name">Haibao Yu</p><p class="person-affiliation">Carnegie Mellon University</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>LW</span><img src="https://www.kth.se/files/avatar/lwild" alt="Portrait of Lena Wild" loading="lazy"></div>
+            <div><p class="person-name">Lena Wild</p><p class="person-affiliation">TRATON</p></div>
+          </div>
+          <a class="leader-card" href="https://www.ce.cit.tum.de/air/people/xingcheng-zhou-msc/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>XZ</span><img src="static/img/xingcheng_zhou.jpeg" alt="Portrait of Xingcheng Zhou" loading="lazy"></div>
+            <div><p class="person-name">Xingcheng Zhou</p><p class="person-affiliation">Technical University of Munich</p></div>
+          </a>
+          <a class="leader-card" href="https://www.sydney.edu.au/engineering/about/our-people/academic-staff/stephany-berrioperez.html" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>SB</span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9fiiufEFH8tuZiG1IQqV80eOYVeUhuvpM4A&amp;s" alt="Portrait of Stephany Berrio Perez" loading="lazy"></div>
+            <div><p class="person-name">Stephany Berrio Perez</p><p class="person-affiliation">University of Sydney</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>NP</span></div>
+            <div><p class="person-name">Nils Purschke</p><p class="person-affiliation">Technical University of Munich</p></div>
+          </div>
+          <a class="leader-card" href="https://www.ce.cit.tum.de/air/people/jiajie-zhang-msc/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>JZ</span><img src="static/img/jiajie_zhang.png" alt="Portrait of Jiajie Zhang" loading="lazy"></div>
+            <div><p class="person-name">Jiajie Zhang</p><p class="person-affiliation">Technical University of Munich</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>JL</span><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&amp;user=hFraJdwAAAAJ&amp;citpid=2" alt="Portrait of Jack Langerman" loading="lazy"></div>
+            <div><p class="person-name">Jack Langerman</p><p class="person-affiliation">Zoox</p></div>
+          </div>
+          <a class="leader-card" href="https://www.linkedin.com/in/lars-ullrich" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>LU</span><img src="static/img/lars_ullrich.jpg" alt="Portrait of Lars Ullrich" loading="lazy"></div>
+            <div><p class="person-name">Lars Ullrich</p><p class="person-affiliation">NEURA Robotics</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>RJ</span></div>
+            <div><p class="person-name">Rajasekhar Josyula</p><p class="person-affiliation">Tesla</p></div>
+          </div>
+          <a class="leader-card" href="https://www.linkedin.com/in/xuewei-qi-48267632/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>TQ</span><img src="static/img/xuewei_qi.jpeg" alt="Portrait of Tony (Xuewei) Qi" loading="lazy"></div>
+            <div><p class="person-name">Tony (Xuewei) Qi</p><p class="person-affiliation">Motional</p></div>
+          </a>
+          <div class="leader-card">
+            <div class="person-avatar"><span>OW</span><img src="https://olafwysocki.github.io/images/img_5902_edit_small.png" alt="Portrait of Olaf Wysocki" loading="lazy"></div>
+            <div><p class="person-name">Olaf Wysocki</p><p class="person-affiliation">University of Cambridge</p></div>
+          </div>
+          <a class="leader-card" href="https://graz.elsevierpure.com/en/persons/daniel-watzenig" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>DW</span><img src="static/img/daniel_watzenig.jpg" alt="Portrait of Daniel Watzenig" loading="lazy"></div>
+            <div><p class="person-name">Daniel Watzenig</p><p class="person-affiliation">TU Graz</p></div>
+          </a>
+          <a class="leader-card" href="https://it-caesar.de/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>HC</span><img src="static/img/holger_caesar.jpg" alt="Portrait of Holger Caesar" loading="lazy"></div>
+            <div><p class="person-name">Holger Caesar</p><p class="person-affiliation">TU Delft</p><p class="leader-role">Benchmarks and TC Coordination</p></div>
+          </a>
+          <a class="leader-card" href="https://boleizhou.github.io/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>BZ</span><img src="https://boleizhou.github.io/assets/img/prof_pic.jpg" alt="Portrait of Bolei Zhou" loading="lazy"></div>
+            <div><p class="person-name">Bolei Zhou</p><p class="person-affiliation">UCLA</p></div>
+          </a>
+          <a class="leader-card" href="https://scholar.google.com/citations?user=LkONrRAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>MT</span><img src="static/img/mohan_trivedi.png" alt="Portrait of Mohan Trivedi" loading="lazy"></div>
+            <div><p class="person-name">Mohan Trivedi</p><p class="person-affiliation">UC San Diego</p></div>
+          </a>
+          <a class="leader-card" href="https://www.ce.cit.tum.de/air/people/prof-dr-ing-habil-alois-knoll/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>AK</span><img src="https://how-to-business.handelsblatt.com/wp-content/uploads/2023/02/knoll.png" alt="Portrait of Alois Knoll" loading="lazy"></div>
+            <div><p class="person-name">Alois Knoll</p><p class="person-affiliation">Technical University of Munich</p></div>
+          </a>
+          <a class="leader-card" href="https://mobility-lab.seas.ucla.edu/about/" target="_blank" rel="noopener noreferrer">
+            <div class="person-avatar"><span>JM</span><img src="static/img/jiaqi_ma.jpg" alt="Portrait of Jiaqi Ma" loading="lazy"></div>
+            <div><p class="person-name">Jiaqi Ma</p><p class="person-affiliation">UCLA</p><p class="leader-role">Benchmarks and TC Coordination</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="editions" class="section-shell is-white">
+      <div class="content-wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Workshop series</div>
+            <h2 class="section-title">Previous DriveX editions</h2>
+          </div>
+          <p class="section-lead">Explore programs, talks, papers, and community resources from the first seven DriveX workshops.</p>
+        </div>
+
+        <div class="edition-grid">
+          <a class="edition-card" href="https://drivex-workshop.github.io/cvpr2025/" target="_blank" rel="noopener noreferrer">CVPR<br>2025</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/iccv2025/" target="_blank" rel="noopener noreferrer">ICCV<br>2025</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/itsc2025/" target="_blank" rel="noopener noreferrer">ITSC<br>2025</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/cvpr2026/" target="_blank" rel="noopener noreferrer">CVPR<br>2026</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/iv2026/" target="_blank" rel="noopener noreferrer">IV<br>2026</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/eccv2026/" target="_blank" rel="noopener noreferrer">ECCV<br>2026</a>
+          <a class="edition-card" href="https://drivex-workshop.github.io/itsc2026/" target="_blank" rel="noopener noreferrer">ITSC<br>2026</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>DriveX@ICRA 2027</strong>
+        <div>Foundation Models for Autonomous Driving</div>
+        <div>Questions: <a href="mailto:wz@ucla.edu">wz@ucla.edu</a></div>
+      </div>
+      <div class="footer-meta">
+        <strong>IEEE ICRA 2027</strong>
+        <div>May 24 or May 28, 2027</div>
+        <div>COEX · Seoul, South Korea</div>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const burger = document.querySelector(".navbar-burger");
+      const menu = document.getElementById("main-menu");
+      const navLinks = Array.from(document.querySelectorAll(".site-nav .navbar-item[href^='#']"));
+
+      if (burger && menu) {
+        burger.addEventListener("click", function () {
+          const expanded = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!expanded));
+          burger.classList.toggle("is-active");
+          menu.classList.toggle("is-active");
+        });
+
+        navLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            burger.setAttribute("aria-expanded", "false");
+            burger.classList.remove("is-active");
+            menu.classList.remove("is-active");
+          });
+        });
+      }
+
+      document.querySelectorAll(".person-avatar img").forEach(function (image) {
+        image.addEventListener("error", function () {
+          image.remove();
+        });
+        if (image.complete && image.naturalWidth === 0) {
+          image.remove();
+        }
+      });
+
+      const sections = navLinks
+        .map(function (link) { return document.querySelector(link.getAttribute("href")); })
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(function (link) {
+              link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id);
+            });
+          });
+        }, { rootMargin: "-32% 0px -60% 0px", threshold: 0 });
+
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+    });
+  </script>
+</body>
+</html>
