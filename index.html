@@ -117,6 +117,12 @@
       box-shadow: 0 7px 22px rgba(65, 199, 199, 0.25);
     }
 
+    .brand-logo-img {
+      display: block;
+      height: 22px;
+      width: auto;
+    }
+
     .brand-copy strong,
     .brand-copy span {
       display: block;
@@ -174,6 +180,14 @@
       z-index: 1;
       width: min(1120px, 100%);
       margin: auto;
+    }
+
+    .hero-logo-img {
+      display: block;
+      height: clamp(38px, 5.5vw, 58px);
+      width: auto;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 26px rgba(65, 199, 199, 0.35));
     }
 
     .hero-kicker {
@@ -965,9 +979,9 @@
       <div class="navbar-brand">
         <a class="navbar-item" href="#top" aria-label="DriveX ICRA 2027 home">
           <span class="brand-lockup">
-            <span class="brand-mark"><i class="fas fa-car-side" aria-hidden="true"></i></span>
+            <img class="brand-logo-img" src="static/img/drivex_logo_white.png" alt="DriveX">
             <span class="brand-copy">
-              <strong>DriveX@ICRA 2027</strong>
+              <strong>@ ICRA 2027</strong>
               <span>Foundation models × autonomous driving</span>
             </span>
           </span>
@@ -995,6 +1009,7 @@
 
   <header id="top" class="drivex-hero">
     <div class="hero-inner">
+      <img class="hero-logo-img" src="static/img/drivex_logo_white.png" alt="DriveX">
       <div class="hero-kicker">
         <span class="dot" aria-hidden="true"></span>
         8th DriveX Workshop · IEEE ICRA 2027
